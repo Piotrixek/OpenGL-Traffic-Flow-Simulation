@@ -12,6 +12,8 @@ public:
     int spawnDir; // 0: left, 1: right, 2: top, 3: bottom
     bool waiting;
     bool hasTurned;
+    bool exploded;
+    float explosionTimer;
     Car(glm::vec3 startPos, glm::vec3 dir, float spd, TurnType turn, int spawnDir);
     void update(float deltaTime);
 };

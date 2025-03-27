@@ -3,10 +3,14 @@
 #include "Car.h"
 #include <glm/gtx/rotate_vector.hpp>
 Car::Car(glm::vec3 startPos, glm::vec3 dir, float spd, TurnType turn, int sDir)
-    : position(startPos), direction(glm::normalize(dir)), speed(spd), turnType(turn), spawnDir(sDir), waiting(false), hasTurned(false) {}
+    : position(startPos), direction(glm::normalize(dir)), speed(spd), turnType(turn), spawnDir(sDir),
+    waiting(false), hasTurned(false), exploded(false), explosionTimer(0.0f) {}
 void Car::update(float deltaTime) {
+    if (exploded) {
+        explosionTimer += deltaTime;
+        return;
+    }
     if (!waiting) {
-        // When near the intersection, change direction according to turn type (only once)
         if (!hasTurned) {
             if (spawnDir == 0 && position.x > -1.0f) { // from left
                 if (turnType == LEFT) direction = glm::vec3(0, 0, 1);
